@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         body{
+            background-color: #cecece;
+        }
+        #inputsection{
+            width: 60%;
+            height: 450px;
+            margin: 3% auto;
+            border: 1px solid rgb(180,180,180);
+            border-radius: 20px;
+            background-color: rgb(180,180,180);
+            color: white;
+        }
+        button{
+           border: none;
+           color: white;
+           border: 0.5vh solid white;
+           width: 51%; margin-left: 25%;margin-top:5%; border-radius: 20px; height: 30px; background-color: transparent;
+        }
+        button:hover{
+            background-color: rgb(180,180,180);
+            color: white;
+            border: none;
+           border: 0.5vh solid rgb(180,180,180);
+        }
+        input::placeholder{
+            color: white;
+        }
+    </style>
+<body>
+    <div id="inputsection">
+        <div class="login" style="width: 30%;"><h1 style="margin-left: 83%; margin-top: 19%; border-bottom: 3px solid white;">Register</h1></div>
+        <form >
+            <input type="text" id="name" style=" margin-top: 2%; margin-left: 25%; width: 50%;  background-color: rgb(180,180,180); border: none; border-bottom: 2px solid white ; color: white;"  placeholder="Enter your name"/> <br/>
+            <input style=" margin-left: 25%; margin-top: 4%; width: 50%;
+            background-color: rgb(180,180,180); border: none; border-bottom: 2px solid white ; color: white;" type="text" id="Email" placeholder="Email"/><br/>
+            <input style=" margin-left: 25%; margin-top: 4%; width: 50%;  background-color: rgb(180,180,180); border: none; border-bottom: 2px solid white ; color: white;" type="password" id="password" placeholder="password"/><br/>
+            <input style=" margin-left: 25%; margin-top: 4%; width: 50%;  background-color: rgb(180,180,180); border: none; border-bottom: 2px solid white ; color: white;" type="text" id="username" placeholder="username"/><br/>
+            <input style=" margin-left: 25%; margin-top: 4%; width: 50%;  background-color: rgb(180,180,180); border: none; border-bottom: 2px solid white ; color: white;" type="text" id="mobile" placeholder="mobile"/><br/>
+            <input style=" margin-left: 25%; margin-top: 4%; width: 50%;  background-color: rgb(180,180,180); border: none; border-bottom: 2px solid white ; color: white;" type="text" id="discription" placeholder="discription"/><br/>
+        </form>
+       <button onclick="register()" style="">REGISTER</button>
+       
+    </div>
+</body>
+<script>
+     const register = async() => {
+        try{
+            var registered = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("Email").value,
+                password: document.getElementById("password").value,
+                username: document.getElementById("username").value,
+                mobile: document.getElementById("mobile").value,
+                description: document.getElementById("discription").value,
+            };
+            let regiterjsondata = JSON.stringify(registered);
+            console.log(regiterjsondata)
+            let res = await fetch(`http://masai-api-mocker.herokuapp.com/auth/register`,
+            {
+                method: "POST",
+                headers: {
+                    "content-Type": "application/json",
+                },
+                body: regiterjsondata,
+            });
+           // console.log(res)
+           var d = await res.json();
+           console.log(d)
+           alert(d.message)
+        }
+        catch(err)
+        {
+            console.log(err)
+        }
+    }
+</script>
+</html>
